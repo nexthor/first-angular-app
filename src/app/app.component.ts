@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { UserComponent } from './user/user.component';
+import { DUMMY_USERS } from '../app/dummy-users';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,5 @@ import { UserComponent } from './user/user.component';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'nexthor';
-  algo = 'how are you today?';
+  users = DUMMY_USERS;
 }

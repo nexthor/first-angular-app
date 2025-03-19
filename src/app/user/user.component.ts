@@ -1,6 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
-import { DUMMY_USERS } from '../dummy-users';
-const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -9,24 +7,14 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
   styleUrl: './user.component.scss'
 })
 export class UserComponent {
-  // signal its a container and notify the entire
-  // application, and updates the content only on
-  // places where were applied
-  selectedUser = signal(DUMMY_USERS[randomIndex]);
-  imagePath = computed(() => '/assets/users/' + this.selectedUser().avatar);
-  
-  // get imagePath() {
-  //   return '/assets/users/' + this.selectedUser().avatar;
-  // }
+  @Input({ required: true }) avatar?: string;
+  @Input() name?: string;
 
-  get randomIndex() {
-    return Math.floor(Math.random() * DUMMY_USERS.length);
+  get imagePath() {
+    return `/assets/users/${this.avatar}`;
   }
 
   onSelectUser() {
-    const index = this.randomIndex;
-    this.selectedUser.set(DUMMY_USERS[index]);
-    // this.selectedUser = DUMMY_USERS[index];
-    console.log('clicked!', index);
   }
 }
+
