@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
 const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
 
@@ -9,11 +9,15 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
   styleUrl: './user.component.scss'
 })
 export class UserComponent {
-  selectedUser = DUMMY_USERS[this.randomIndex]
-
-  get imagePath() {
-    return '/assets/users/' + this.selectedUser.avatar;
-  }
+  // signal its a container and notify the entire
+  // application, and updates the content only on
+  // places where were applied
+  selectedUser = signal(DUMMY_USERS[randomIndex]);
+  imagePath = computed(() => '/assets/users/' + this.selectedUser().avatar);
+  
+  // get imagePath() {
+  //   return '/assets/users/' + this.selectedUser().avatar;
+  // }
 
   get randomIndex() {
     return Math.floor(Math.random() * DUMMY_USERS.length);
@@ -21,7 +25,8 @@ export class UserComponent {
 
   onSelectUser() {
     const index = this.randomIndex;
-    this.selectedUser = DUMMY_USERS[index];
+    this.selectedUser.set(DUMMY_USERS[index]);
+    // this.selectedUser = DUMMY_USERS[index];
     console.log('clicked!', index);
   }
 }
