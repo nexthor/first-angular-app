@@ -9,5 +9,19 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
   styleUrl: './user.component.scss'
 })
 export class UserComponent {
-  selectedUser = DUMMY_USERS[randomIndex]
+  selectedUser = DUMMY_USERS[this.randomIndex]
+
+  get imagePath() {
+    return '/assets/users/' + this.selectedUser.avatar;
+  }
+
+  get randomIndex() {
+    return Math.floor(Math.random() * DUMMY_USERS.length);
+  }
+
+  onSelectUser() {
+    const index = this.randomIndex;
+    this.selectedUser = DUMMY_USERS[index];
+    console.log('clicked!', index);
+  }
 }
