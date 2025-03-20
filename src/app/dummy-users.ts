@@ -1,3 +1,5 @@
+import { User } from "types/user";
+
 export const DUMMY_USERS = [
     {
       id: 'u1',
@@ -29,4 +31,4 @@ export const DUMMY_USERS = [
       name: 'Arjun Singh',
       avatar: 'user-6.jpg',
     },
-  ];
+  ] as User[];

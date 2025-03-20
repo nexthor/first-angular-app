@@ -3,6 +3,7 @@ import { HeaderComponent } from "./header/header.component";
 import { UserComponent } from './user/user.component';
 import { DUMMY_USERS } from '../app/dummy-users';
 import { TasksComponent } from './tasks/tasks.component';
+import { User } from 'types/user';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +13,10 @@ import { TasksComponent } from './tasks/tasks.component';
 })
 
 export class AppComponent {
-  users = DUMMY_USERS;
-  user_name = '';
+  user: User | undefined;
+  users: User[] = DUMMY_USERS;
 
   onSelectUser(id: string) {
-    const user = this.users.find(user => user.id === id);
-    this.user_name = user?.name || '';
+    this.user = this.users.find(user => user.id === id);
   }
 }
