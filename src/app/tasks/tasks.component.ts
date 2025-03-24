@@ -3,6 +3,7 @@ import { TaskComponent } from "./task/task.component";
 import { User } from 'types/user';
 import { DUMMY_TASKS } from '../dummy-tasks';
 import { AddTaskComponent } from 'app/add-task/add-task.component';
+import { Task } from 'types/task';
 
 @Component({
   selector: 'app-tasks',
@@ -30,6 +31,15 @@ export class TasksComponent {
   }
 
   onCancelAddTask() {
+    this.addTask = false;
+  }
+
+  onCreateTask(newTask: Task) {
+    const id = this.tasks.length + 1;
+    newTask.id = id.toString();
+    newTask.userId = this.user?.id || '';
+
+    this.tasks.unshift(newTask);
     this.addTask = false;
   }
 }
