@@ -2,15 +2,19 @@ import { Component, Input } from '@angular/core';
 import { TaskComponent } from "./task/task.component";
 import { User } from 'types/user';
 import { DUMMY_TASKS } from '../dummy-tasks';
+import { AddTaskComponent } from 'app/add-task/add-task.component';
 
 @Component({
   selector: 'app-tasks',
-  imports: [TaskComponent],
+  imports: [TaskComponent, AddTaskComponent],
+  standalone: true,
+  providers: [],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss'
 })
 export class TasksComponent {
   @Input({ required: true }) user?: User;
+  @Input({ required: true }) addTask: boolean = false;
   tasks = DUMMY_TASKS;
 
   get selectedUserTasks() {
@@ -19,5 +23,9 @@ export class TasksComponent {
 
   completeTask(id: string) {
     this.tasks = this.tasks.filter(task => task.id !== id);
+  }
+
+  onAddTask() {
+    this.addTask = !this.addTask;
   }
 }
