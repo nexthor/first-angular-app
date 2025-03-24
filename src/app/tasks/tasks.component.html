@@ -6,16 +6,16 @@
             <button (click)="onAddTask()">Add Task</button>
         </menu>
     </header>
+
     @if (addTask) {
-        <add-task />
+        <add-task (cancel)="onCancelAddTask()" />
     }
-    @else {
-        <ul>
-            @for (task of selectedUserTasks; track task.id) {
-                <li>
-                    <app-task [task]="task" (complete)="completeTask($event)" />
-                </li>
-            }
-        </ul>
-    }
+
+    <ul>
+        @for (task of selectedUserTasks; track task.id) {
+            <li>
+                <app-task [task]="task" (complete)="completeTask($event)" />
+            </li>
+        }
+    </ul>
 </section>

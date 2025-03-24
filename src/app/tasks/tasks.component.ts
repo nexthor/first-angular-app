@@ -26,6 +26,10 @@ export class TasksComponent {
   }
 
   onAddTask() {
-    this.addTask = !this.addTask;
+    this.addTask = true;
+  }
+
+  onCancelAddTask() {
+    this.addTask = false;
   }
 }
