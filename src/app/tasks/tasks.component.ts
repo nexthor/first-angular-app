@@ -4,6 +4,7 @@ import { User } from 'types/user';
 import { DUMMY_TASKS } from '../dummy-tasks';
 import { AddTaskComponent } from 'app/add-task/add-task.component';
 import { Task } from 'types/task';
+import { TaskService } from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -16,10 +17,14 @@ import { Task } from 'types/task';
 export class TasksComponent {
   @Input({ required: true }) user?: User;
   @Input({ required: true }) addTask: boolean = false;
+
+  // Dependency injection, its pretty much similar to C#
+  constructor(private taskService: TaskService) {}
+
   tasks = DUMMY_TASKS;
 
   get selectedUserTasks() {
-    return this.tasks.filter(task => task.userId === this.user?.id);
+    return this.taskService.getUserTasks(this.user?.id || '');
   }
 
   completeTask(id: string) {
