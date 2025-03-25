@@ -11,7 +11,7 @@ import { CardComponent } from "../shared/card/card.component";
   selector: 'app-user',
   imports: [CardComponent],
   templateUrl: './user.component.html',
-  styleUrl: './user.component.scss'
+  styleUrl: './user.component.scss',
 })
 export class UserComponent {
   @Input({ required: true }) user?: User;
