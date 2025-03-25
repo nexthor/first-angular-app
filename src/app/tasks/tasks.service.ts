@@ -7,6 +7,14 @@ import { Task } from "types/task";
 export class TaskService {
     private tasks = DUMMY_TASKS;
 
+    constructor() {
+        const tasks = localStorage.getItem('tasks');
+        
+        if (tasks) {
+            this.tasks = JSON.parse(tasks);
+        }
+    }
+
     getTasks() {
         return this.tasks;
     }
@@ -21,9 +29,17 @@ export class TaskService {
         newTask.userId = userId || '';
 
         this.tasks.unshift(newTask);
+
+        this.saveTasks();
     }
 
     removeTask(id: string) {
         this.tasks = this.tasks.filter(task => task.id !== id);
+
+        this.saveTasks();
+    }
+
+    private saveTasks() {
+        localStorage.setItem('tasks', JSON.stringify(this.tasks));
     }
 }
