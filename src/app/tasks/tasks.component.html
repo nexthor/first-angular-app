@@ -8,13 +8,13 @@
     </header>
 
     @if (addTask) {
-        <add-task (cancel)="onCancelAddTask()" (create)="onCreateTask($event)" />
+        <add-task (cancel)="onCancelAddTask()" [userId]="user?.id" />
     }
 
     <ul>
         @for (task of selectedUserTasks; track task.id) {
             <li>
-                <app-task [task]="task" (complete)="completeTask($event)" />
+                <app-task [task]="task" />
             </li>
         }
     </ul>

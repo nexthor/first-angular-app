@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TaskService } from 'app/tasks/tasks.service';
 import { Task } from 'types/task';
 
 @Component({
@@ -10,10 +11,12 @@ import { Task } from 'types/task';
 })
 export class AddTaskComponent {
   @Output() cancel = new EventEmitter<void>();
-  @Output() create = new EventEmitter<Task>();
+  @Input({ required: true }) userId: string | undefined;
   title = '';
   summary = '';
   dueDate = '';
+  // this is another way to inject a new class in a component
+  private taskService = inject(TaskService);
 
   onCancel() {
     this.cancel.emit();
@@ -27,9 +30,10 @@ export class AddTaskComponent {
       dueDate: this.dueDate,
       userId: '1',
     }
-    this.create.emit(newTask);
+    this.taskService.addTask(newTask, this.userId as string);
     this.title = '';
     this.summary = '';
     this.dueDate = '';
+    this.cancel.emit();
   }
 }
